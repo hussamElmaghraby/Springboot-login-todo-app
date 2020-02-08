@@ -1,0 +1,11 @@
+		<script src="webjars/jquery/3.0.0/jquery.min.js"></script>
+		<script src="webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+		<script
+			src="webjars/bootstrap-datepicker/1.0.1/js/bootstrap-datepicker.js"></script>
+		<script>
+			$('#targetDate').datepicker({
+				format : 'dd/mm/yyyy'
+			});
+		</script>
+</body>
+</html>
