@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.springBoot.web.model.Todo;
+import com.springBoot.web.entity.Todo;
 
 @Service
 public class TodoService {

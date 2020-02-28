@@ -1,10 +1,18 @@
-package com.springBoot.web.model;
+package com.springBoot.web.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name="todo")
 public class Todo {
+	@Id
+	@GeneratedValue
 	private int id; 
 	private String user;
 	@Size(min=10 , message="Enter at Least 10 characters ")

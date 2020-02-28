@@ -1,7 +1,8 @@
-package com.springBoot.web.springbootfirstwebapplicaiton.controller;
+package com.springBoot.web.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -18,13 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.springBoot.web.model.Todo;
-import com.springBoot.web.service.TodoService;
+import com.springBoot.web.entity.Todo;
+import com.springBoot.web.service.TodoRepository;
 
 @Controller
 public class TodoController {
+	
 	@Autowired
-	TodoService todoService;
+	TodoRepository repository;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -37,7 +39,7 @@ public class TodoController {
 	@RequestMapping(value = "/list-todo", method = RequestMethod.GET)
 	public String ShowTodos(ModelMap model) {
 		String name = getLoggedinUserName();
-		model.put("todos", todoService.retrieveTodos(name));
+		model.put("todos" , repository.findByUser(name));
 		return "list-todo";
 	}
 
@@ -65,19 +67,20 @@ public class TodoController {
 		}
 		// using Todo as command bean ..
 		String name = getLoggedinUserName();
-		// accessing the desc form the command bean
-		todoService.addTodo(name, todo.getDesc(), todo.getTargetDate(), false);
+		// storing in the database  ,,
+		todo.setUser(name);
+		repository.save(todo);
 		return "redirect:/list-todo";
 	}
 
 	@RequestMapping(value = "/delete-todo", method = RequestMethod.GET)
 	public String deleteTodo(@RequestParam int id) {
-		todoService.deleteTodo(id);
+		repository.deleteById(id);
 		return "redirect:/list-todo";
 	}
 	@RequestMapping(value = "/update-todo", method = RequestMethod.GET)
 	public String showUpdateTodo(@RequestParam int id , ModelMap model ) {
-		Todo todo = todoService.retrieveTodo(id);
+		Todo todo = repository.findById(id).get();
 		model.put("todo" , todo);
 		return "add-todo";
 	}
@@ -88,7 +91,7 @@ public class TodoController {
 			return "add-todo";
 		}
 		todo.setUser(getLoggedinUserName());
-		todoService.updateTodo(todo);
+		repository.save(todo);
 		return "redirect:/list-todo";
 	}
 }

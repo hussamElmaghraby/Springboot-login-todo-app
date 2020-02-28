@@ -1,4 +1,4 @@
-package com.springBoot.web.springbootfirstwebapplicaiton.controller;
+package com.springBoot.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

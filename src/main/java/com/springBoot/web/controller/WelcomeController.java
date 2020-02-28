@@ -1,4 +1,4 @@
-package com.springBoot.web.springbootfirstwebapplicaiton.controller;
+package com.springBoot.web.controller;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
